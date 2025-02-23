@@ -34,7 +34,7 @@
                                         <%= Med.name %>
                                     </td>
                                     <td>
-                                        <%= Med.numberOfTablets %>
+                                        <%= Med.numberOfTablets> 0 ? Med.numberOfTablets : 0 %>
                                     </td>
                                     <td>
                                         <%= Med.expiryDate %>
@@ -43,12 +43,12 @@
                                     <td>
                                         <% if (Med.status=="Take Dose" ) { %>
                                             <button id="doseBtn-<%= Med._id %>" style="background-color:#f39c12;"
-                                                onclick="stopAlarmAndUpdate('<%= Med._id %>'); updateUsage('<%= med._id %>');">
+                                                onclick="stopAlarmAndUpdate('<%= Med._id %>'); updateUsage('<%= Med._id %>');">
                                                 <%= Med.status %>
                                             </button>
 
-                                            <audio id="alarmSound-<%= Med._id %>" src="/audio/alarm.mp3"
-                                                preload="auto"></audio>
+                                            <audio id="alarmSound-<%= Med._id %>" src="/audio/alarm.mp3" preload="auto"
+                                                loop></audio>
 
 
                                             <% } %>
@@ -64,6 +64,9 @@
                                                                 <%= Med.status %>
                                                             </button>
                                                             <% } %>
+
+
+
 
                                                                 <script src="/js/alarm.js"></script>
                                     </td>
@@ -85,13 +88,16 @@
 
             <section class="alerts">
 
+                <h2>Upcoming Expiration & Low Stock Alerts</h2>
                 <% if (Alerts && Alerts.length> 0) { %>
                     <% Alerts.forEach(alert=> { %>
                         <div class="alert <%= alert.type === 'low-stock' ? 'low-stock' : 'expiring-soon' %>">
                             <% if (alert.type==='low-stock' ) { %>
                                 <p><strong>
                                         <%= alert.medicineName %>
-                                    </strong> is low in stock (<%= alert.stock %>). Consider reordering.</p>
+                                    </strong> is low in stock ( <%= alert.stock > 0 ? alert.stock : 0 %>
+                                    ). Consider
+                                        reordering.</p>
                                 <% } else if (alert.type==='expiring-soon' ) { %>
                                     <p><strong>
                                             <%= alert.medicineName %>
@@ -103,29 +109,9 @@
                                 <p>No current alerts.</p>
                                 <% } %>
 
-                                    <!-- <h2>Upcoming Expiration & Low Stock Alerts</h2>
-                <div class="alert low-stock">
-                    <p><strong>Vitamin C</strong> is low in stock (< 5). Consider reordering.</p>
-                </div>
-                <div class="alert expiring-soon">
-                    <p><strong>Calcium Tablets</strong> expire on 2025-02-25. Reorder soon!</p>
-                </div>
 
-                <div id="btn"><button>View All</button></div> -->
             </section>
 
-            <!-- Upcoming Expiration & Low Stock Alerts -->
-            <!-- <section class="alerts">
-                <h2>Dose Reminders</h2>
-                <div class="alert low-stock">
-                    <p>Your had missed vitamin C at ------ nearest past dose time </p>
-                </div>
-                <div class="alert expiring-soon">
-                    <p>Be ready vitamin C dose time coming soon at ---- nearest future dose time</p>
-                </div>
-
-                <div id="btn"><button>View All</button></div>
-            </section> -->
 
 
             <section class="alerts">
@@ -152,14 +138,7 @@
                                     <div id="btn"><button>View All</button></div>
             </section>
 
-            <!-- <section class="usage-summary">
-                <h2>Recent Usage</h2>
-                <ul>
-                    <li>Vitamin C: 2 tablets used on 2025-02-18</li>
-                    <li>Iron Supplements: 1 pill used on 2025-02-17</li>
-                </ul>
-                <button>Add Usage</button>
-            </section> -->
+
 
             <section class="usage-summary">
                 <h2>Recent Usage</h2>

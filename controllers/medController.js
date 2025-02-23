@@ -108,7 +108,7 @@ exports.updateInventory = (req, res) => {
   }
 };
 
-//ALERT SECTION
+//EXPIRATION AND ALERT SECTION
 exports.updateAlerts = async () => {
   try {
     const medicines = await Medicine.find();
@@ -117,22 +117,22 @@ exports.updateAlerts = async () => {
       const alertsList = [];
 
       // Low Stock Alert
-      if (med.stock < 5) {
+      if (med.numberOfTablets < 5) {
         alertsList.push({
           medicineName: med.name,
-          type: "low-stock", // dynamically assigned
-          stock: med.stock,
+          type: "low-stock", 
+          stock: med.numberOfTablets,
         });
       }
 
       // Expiring Soon Alert
       const today = moment();
       const expiryDate = moment(med.expiryDate);
-      if (expiryDate.diff(today, "days") <= 15) {
+      if (expiryDate.diff(today, "days") <= 10) {
         alertsList.push({
           medicineName: med.name,
-          type: "expiring-soon", // dynamically assigned
-          expiryDate: med.expiryDate,
+          type: "expiring-soon", 
+          expiryDate: expiryDate.format("DD-MM-YY"),
         });
       }
       return alertsList;
@@ -214,7 +214,6 @@ exports.updateRecentUsage = async (req, res) => {
 
 
 //WHOLE DASHBOARD RENDERING
-
 exports.updateDashboard = async (req, res) => {
   try {
     // Fetch all section data in parallel

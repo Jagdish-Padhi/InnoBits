@@ -8,7 +8,7 @@ const formatMed = (medicines) => {
 
       return {
         ...med,
-        expiryDate: `${day}/ ${month}/ ${year}`,
+        expiryDate: `${day}-${month}-${year}`,
       };
     }
     return med;

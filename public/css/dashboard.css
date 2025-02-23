@@ -87,8 +87,15 @@ section button:hover {
   margin-bottom: 30px;
 }
 
-.alerts .alert {
+.alerts .expiring-soon {
   background-color: #f9ebec;
+  border-left: 5px solid #f39c12;
+  padding: 12px 20px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+.alerts .low-stock {
+  background-color: #f9ebee;
   border-left: 5px solid #e74c3c;
   padding: 12px 20px;
   margin-bottom: 15px;
@@ -116,6 +123,13 @@ section button:hover {
 .usage-summary li {
   font-size: 16px;
   margin-bottom: 10px;
+}
+.medicine-card{
+  background-color: #e9f5ff;
+  border-left: 5px solid #1e3d68;
+  padding: 12px 20px;
+  margin-bottom: 15px;
+  font-size: 16px;
 }
 
 /* Reminders Section */
